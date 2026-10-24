@@ -1,44 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width-device-width,intial-scale=1.0" />
-    <title>my personal file</title>
-    <link rel="stylesheet" href="./style.css" />
+    <meta name="viewport" content="width-device-width,intial-scale=1.0" />
     
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
+    <link rel="stylesheet" href="./style.css" ></link>
+  <title>My Birthday Countdown Checker</title>
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #3b2f2f;
+      text-align: center;
+    }
+
+
+    .birthday-card {
+      width: 520px;
+      background-color: white;
+      border: 4px solid #ff6f91;
+      border-radius: 20px;
+      margin: 40px auto;
+      padding: 25px;
+      box-shadow: 0 0 20px #ff8fab;
+    }
+
+
+    h1 {
+      color: #ff477e;
+      font-size: 34px;
+    }
+
+
+    .emoji {
+      font-size: 60px;
+    }
+
+
+    .info-box {
+      background-color: #fff0f5;
+      border: 2px dashed #ff6f91;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+
+    button {
+      background-color: #ff477e;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+
+    button:hover {
+      background-color: #d6336c;
+    }
+
+
+    #daysBox {
+      font-size: 42px;
+      font-weight: bold;
+      color: #7209b7;
+    }
+
+
+    #result {
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+
+    #countdown {
+      color: #ff477e;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+  </style>
 </head>
-<body class="py-4">
 
-  <div class="container">
-    <h1 class="mb-1">My Favourite Person Profile</h1>
-    <p class="text-muted mb-4">Introduction to Objects in JavaScript</p>
-    <button onClick="prof()">click me!!</button>
 
-  
-    <div class="card shadow-sm mb-3" >
-      <div class="card-body">
-        <h5 class="card-title" >Profile Details</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><span class="card-label d-block">Name</span><strong id="name">-</strong></li>
-          <li class="list-group-item"><span class="card-label d-block">Relationship</span><strong id="relationship">-</strong></li>
-          <li class="list-group-item"><span class="card-label d-block">Favourite Activity</span><strong id="activity">-</strong></li>
-          <li class="list-group-item"><span class="card-label d-block">City</span><strong id="city">-</strong></li>
-        </ul>
-      </div>
+<body>
+
+
+  <div class="birthday-card">
+
+
+    <div class="emoji">Birthday Time</div>
+
+
+    <h1>My Birthday Countdown Checker</h1>
+
+
+    <p>
+      Click the button to check how many days are left for the birthday celebration.
+    </p>
+
+
+    <button onclick="checkBirthday()">Check Birthday Countdown</button>
+
+
+    <h2>Days Left</h2>
+    <div id="daysBox">?</div>
+
+
+    <div class="info-box">
+      <h2>Birthday Result</h2>
+      <p id="result"></p>
     </div>
 
-    
-    <div class="card shadow-sm" >
-      <div class="card-body">
-        <h3 >JavaScript Object Used</h3>
-        <pre id="codeDisplay" class="bg-light p-3 rounded border mb-0"></pre>
-      </div>
+
+    <div class="info-box">
+      <h2>Countdown Review</h2>
+      <p id="countdown"></p>
     </div>
+
+
   </div>
 
-  <script src="script.js"></script>
+
+  <script>
+    function checkBirthday() {
+
+
+      
+      let birthdayGift = null;
+      let birthdayPlan;
+
+
+      
+      const studentName = "saanvi";
+      const birthdayMonth = 8;
+      const birthdayDate = 15;
+
+
+      let message = "";
+      let countdownText = "";
+
+
+    
+      let today = new Date();
+      let currentYear = today.getFullYear();
+
+
+      let birthday = new Date(currentYear, birthdayMonth - 1, birthdayDate);
+
+
+      
+      if (birthday < today) {
+        birthday = new Date(currentYear + 1, birthdayMonth - 1, birthdayDate);
+      }
+
+
+      let timeDifference = birthday - today;
+      let daysLeft = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+
+      
+      if (daysLeft === 0) {
+        message = "Happy Birthday, " + studentName + "! Today is your special day!";
+      } else if (daysLeft <= 7) {
+        message = "Your birthday is almost here, " + studentName + "!";
+      } else {
+        message = "Keep counting, " + studentName + "! Your birthday is coming soon.";
+      }
+
+
+      
+      let finalMessage = "Student Name: " + studentName + "<br>";
+      finalMessage = finalMessage + "Today's Date: " + today.toDateString() + "<br>";
+      finalMessage = finalMessage + "Birthday Date: " + birthday.toDateString() + "<br>";
+      finalMessage = finalMessage + "Message: " + message + "<br><br>";
+
+
+      finalMessage = finalMessage + "Birthday Gift: " + birthdayGift + "<br>";
+      finalMessage = finalMessage + "Birthday Plan: " + birthdayPlan;
+
+
+      document.getElementById("daysBox").innerHTML = daysLeft;
+      document.getElementById("result").innerHTML = finalMessage;
+
+
+      
+      let day = 1;
+
+
+      while (day <= 5) {
+        countdownText = countdownText + "Countdown check " + day;
+        countdownText = countdownText + ": Birthday excitement loading...<br>";
+        day++;
+      }
+
+
+      document.getElementById("countdown").innerHTML = countdownText;
+    }
+  </script>
+
+
 </body>
 </html>
